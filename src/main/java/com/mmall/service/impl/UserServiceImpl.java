@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
         if (user == null){
             return ServerResponse.CreateByErrorMessage("Password error");
         }
-
+        //KEEP IN MIND
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.CreateBySuccess("Login Success",user);
     }

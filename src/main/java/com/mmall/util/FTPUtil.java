@@ -31,7 +31,7 @@ public class FTPUtil {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
         logger.info("Start to connect FTP server.");
         //下面这行try/catch抛到业务层，另做处理。不一定要在很底层就处理掉。
-        boolean result = ftpUtil.uploadFile("C:/ftpfile/img",fileList);
+        boolean result = ftpUtil.uploadFile("img",fileList);//FIXME
         logger.info("Finish upload, the result is {}");
         return result;
     }
