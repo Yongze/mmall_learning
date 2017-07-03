@@ -27,8 +27,8 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public ServerResponse addCategory(String categoryName, Integer parentId){
-        if(parentId == null || StringUtils.isBlank(categoryName)){
+    public ServerResponse addCategory(String categoryName, Integer parentId) {
+        if (parentId == null || StringUtils.isBlank(categoryName)) {
             return ServerResponse.CreateByErrorMessage("wrong category parameter.");
         }
         Category category = new Category();
@@ -37,29 +37,29 @@ public class CategoryServiceImpl implements ICategoryService {
         category.setStatus(true);//这个分类可用
 
         int rowCount = categoryMapper.insert(category);
-        if (rowCount > 0){
+        if (rowCount > 0) {
             return ServerResponse.CreateBySuccessMessage("Success to add category.");
         }
         return ServerResponse.CreateByErrorMessage("Fail to add category.");
     }
 
-    public ServerResponse updateCategoryName(Integer categoryId, String categoryName){
-        if(categoryId == null || StringUtils.isBlank(categoryName)){
+    public ServerResponse updateCategoryName(Integer categoryId, String categoryName) {
+        if (categoryId == null || StringUtils.isBlank(categoryName)) {
             return ServerResponse.CreateByErrorMessage("wrong updated category parameter.");
         }
         Category category = new Category();
         category.setId(categoryId);
         category.setName(categoryName);
         int rowCount = categoryMapper.updateByPrimaryKeySelective(category);
-        if (rowCount > 0){
+        if (rowCount > 0) {
             return ServerResponse.CreateBySuccessMessage("Succeed to update category.");
         }
         return ServerResponse.CreateByErrorMessage("Fail to update category name.");
     }
 
-    public ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId){
+    public ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId) {
         List<Category> categoryList = categoryMapper.selectCategoryChildrenByParentId(categoryId);
-        if (CollectionUtils.isEmpty(categoryList)){
+        if (CollectionUtils.isEmpty(categoryList)) {
             logger.info("cannot find children category of current category.");
         }
         return ServerResponse.CreateBySuccess(categoryList);
@@ -67,15 +67,16 @@ public class CategoryServiceImpl implements ICategoryService {
 
     /**
      * search current node id and children id recursively
+     *
      * @param categoryId
      * @return
      */
-    public ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId){
+    public ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId) {
         Set<Category> categorySet = Sets.newHashSet();
         findChildCategory(categorySet, categoryId);
         List<Integer> categoryIdList = Lists.newArrayList();
-        if (categoryId != null){
-            for (Category item: categorySet){
+        if (categoryId != null) {
+            for (Category item : categorySet) {
                 categoryIdList.add(item.getId());
             }
         }
@@ -83,15 +84,14 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     //recursive
-    private Set<Category> findChildCategory(Set<Category> categorySet, Integer categoryId){
+    private Set<Category> findChildCategory(Set<Category> categorySet, Integer categoryId) {
         Category category = categoryMapper.selectByPrimaryKey(categoryId);
-        if (category != null){
+        if (category != null) {
             categorySet.add(category);
         }
         //即使是空Mybatis也不会返回null，不用做null判断
         List<Category> categoryList = categoryMapper.selectCategoryChildrenByParentId(categoryId);
-        for (Category item :
-                categoryList) {
+        for (Category item : categoryList) {
             findChildCategory(categorySet, item.getId());
         }
         return categorySet;

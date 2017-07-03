@@ -62,8 +62,8 @@ public class FTPUtil {
             }
         }
         return uploaded;
-
     }
+
     private boolean connectServer(String ip, int port, String user, String pass){
         boolean isSuccess = false;
         ftpClient = new FTPClient();

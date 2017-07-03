@@ -76,6 +76,7 @@ public class CartServiceImpl implements ICartService {
         cartMapper.deleteByUserIdProductIds(userId,productList);
         return this.list(userId);
     }
+
     public ServerResponse<CartVo> list(Integer userId){
         CartVo cartVo = this.getCartVoLimit(userId);
         return ServerResponse.CreateBySuccess(cartVo);

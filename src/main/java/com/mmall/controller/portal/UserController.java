@@ -94,7 +94,7 @@ public class UserController {
     @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> update_Information(HttpSession session, User user){
-        //防止user id被更改，要从session中获取
+        //KEEP IN MIND 防止user id被更改，要从session中获取
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
         if(currentUser == null){
             return ServerResponse.CreateByErrorMessage("The User haven't login.");

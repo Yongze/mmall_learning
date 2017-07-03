@@ -149,7 +149,7 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<User> updateInformation(User user){
         //username cannot be updated
         //check new email exist or not, and if the email exist, the email cannot be the current user
-        int resultCount = userMapper.checkEmailByuserId(user.getEmail(),user.getId());
+        int resultCount = userMapper.checkEmailByUserId(user.getEmail(),user.getId());
         if(resultCount > 0){
             return ServerResponse.CreateByErrorMessage("The email has existed. Please change a new email address");
         }

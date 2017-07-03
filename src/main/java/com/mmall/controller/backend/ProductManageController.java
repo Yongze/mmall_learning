@@ -133,7 +133,6 @@ public class ProductManageController {
         } else {
             return ServerResponse.CreateByErrorMessage("Permission deny.");
         }
-
     }
 
     @RequestMapping("richtext_img_upload.do")

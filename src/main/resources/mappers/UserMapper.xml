@@ -187,7 +187,7 @@
         WHERE id = #{userId}
         and password = #{password}
     </select>
-    <select id="checkEmailByuserId" resultType="java.lang.Integer" parameterType="map">
+    <select id="checkEmailByUserId" resultType="java.lang.Integer" parameterType="map">
         SELECT count(1)
         FROM mmall_user
         WHERE email = #{email}

@@ -80,7 +80,6 @@ public class OrderServiceImpl implements IOrderService {
         for(Order order : orderList){
             List<OrderItem>  orderItemList = Lists.newArrayList();
             if(userId == null){
-                //todo 管理员查询的时候 不需要传userId
                 orderItemList = orderItemMapper.getByOrderNo(order.getOrderNo());
             }else{
                 orderItemList = orderItemMapper.getByOrderNoUserId(order.getOrderNo(),userId);
