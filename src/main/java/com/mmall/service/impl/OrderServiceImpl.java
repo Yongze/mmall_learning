@@ -110,7 +110,7 @@ public class OrderServiceImpl implements IOrderService {
         if(!serverResponse.isSuccess()){
             return serverResponse;
         }
-        List<OrderItem> orderItemList =( List<OrderItem> ) serverResponse.getData();
+        List<OrderItem> orderItemList = (List<OrderItem>) serverResponse.getData();
 
         List<OrderItemVo> orderItemVoList = Lists.newArrayList();
 
