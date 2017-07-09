@@ -37,7 +37,7 @@ public class FTPUtil {
     }
 
     private boolean uploadFile(String remotePath, List<File> fileList) throws IOException {
-        boolean uploaded = true;
+        boolean uploaded = false;
         FileInputStream fis = null;
 //        connect to ftp server
         if (connectServer(this.ip,this.port, this.user, this.pwd)) {
@@ -51,6 +51,7 @@ public class FTPUtil {
                     fis = new FileInputStream(fileItem);
                     ftpClient.storeFile(fileItem.getName(),fis);
                 }
+                uploaded = true;
             } catch (IOException e) {
                 uploaded = false;
                 logger.error("Exception for uploading file.",e);
@@ -71,7 +72,7 @@ public class FTPUtil {
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user,pass);
         } catch (IOException e) {
-            logger.error("Exception for connect to server", e);
+            logger.error("Exception for login as ftp user", e);
             e.printStackTrace();
         }
         return isSuccess;
