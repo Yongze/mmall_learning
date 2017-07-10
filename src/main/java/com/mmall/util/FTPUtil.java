@@ -33,6 +33,11 @@ public class FTPUtil {
         //下面这行try/catch抛到业务层，另做处理。不一定要在很底层就处理掉。
         boolean result = ftpUtil.uploadFile("img",fileList);//FIXME
         logger.info("Finish upload, the result is {}",result);
+        if(result){
+            logger.info("Finish upload, the result is true");
+        }else {
+            logger.info("Finish upload, the result is false.");
+        }
         return result;
     }
 
