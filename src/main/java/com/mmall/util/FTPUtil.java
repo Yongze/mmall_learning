@@ -32,7 +32,7 @@ public class FTPUtil {
         logger.info("Start to connect FTP server.");
         //下面这行try/catch抛到业务层，另做处理。不一定要在很底层就处理掉。
         boolean result = ftpUtil.uploadFile("img",fileList);//FIXME
-        logger.info("Finish upload, the result is {}");
+        logger.info("Finish upload, the result is {}",result);
         return result;
     }
 
@@ -68,9 +68,11 @@ public class FTPUtil {
     private boolean connectServer(String ip, int port, String user, String pass){
         boolean isSuccess = false;
         ftpClient = new FTPClient();
+        logger.info("start to connect to ftp server in connect server method.");
         try {
             ftpClient.connect(ip);
             isSuccess = ftpClient.login(user,pass);
+            logger.info("start to login to ftp server result isSuccess: {}.",isSuccess);
         } catch (IOException e) {
             logger.error("Exception for login as ftp user", e);
             e.printStackTrace();
