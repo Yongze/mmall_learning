@@ -39,7 +39,6 @@ public class FileServiceImpl implements IFileService {
 
             //upload files to ftp server
             FTPUtil.uploadFile(Lists.newArrayList(targetFile));
-            //if return true then
             //remove images in upload dir after upload files to ftp server
             targetFile.delete();
         } catch (IOException e) {
