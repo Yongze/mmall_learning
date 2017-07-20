@@ -200,9 +200,10 @@ public class ProductServiceImpl implements IProductService {
         }
         PageHelper.startPage(pageNum, pageSize);
         if (StringUtils.isNotBlank(orderBy)){
-            if (Const.productListOrderBy.PRICE_ASC_DESC.contains(orderBy));
-            String replace = orderBy.replace("_"," ");
-            PageHelper.orderBy(replace);
+            if (Const.productListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
+                String replace = orderBy.replace("_", " ");
+                PageHelper.orderBy(replace);
+            }
         }
         List<Product> productList = productMapper.selectByNameAndCategoryId(
                 StringUtils.isBlank(keyword)?null:keyword,
