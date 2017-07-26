@@ -192,13 +192,16 @@ public class ProductServiceImpl implements IProductService {
                 PageHelper.startPage(pageNum, pageSize);
                 List<ProductListVo> productListVoList = Lists.newArrayList();
                 PageInfo pageInfo = new PageInfo(productListVoList);
+                return ServerResponse.CreateBySuccess(pageInfo);
             }
+//            获取分类和子分类
             categoryIdList = iCategoryService.selectCategoryAndChildrenById(categoryId).getData();
         }
         if (StringUtils.isNotBlank(keyword)){
             keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
         }
         PageHelper.startPage(pageNum, pageSize);
+//        排序处理
         if (StringUtils.isNotBlank(orderBy)){
             if (Const.productListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
                 String replace = orderBy.replace("_", " ");
