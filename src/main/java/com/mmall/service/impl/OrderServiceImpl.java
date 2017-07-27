@@ -98,7 +98,7 @@ public class OrderServiceImpl implements IOrderService {
             OrderVo orderVo = assembleOrderVo(order,orderItemList);
             return ServerResponse.CreateBySuccess(orderVo);
         }
-        return  ServerResponse.CreateByErrorMessage("没有找到该订单");
+        return  ServerResponse.CreateByErrorMessage("Cannot find the order");
     }
 
     public ServerResponse getOrderCartProduct(Integer userId){
@@ -201,6 +201,7 @@ public class OrderServiceImpl implements IOrderService {
         orderVo.setEndTime(DateTimeUtil.dateToStr(order.getEndTime()));
         orderVo.setCreateTime(DateTimeUtil.dateToStr(order.getCreateTime()));
         orderVo.setCloseTime(DateTimeUtil.dateToStr(order.getCloseTime()));
+        orderVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
 
         List<OrderItemVo> orderItemVoList = Lists.newArrayList();
         for(OrderItem orderItem : orderItemList){
@@ -209,7 +210,6 @@ public class OrderServiceImpl implements IOrderService {
         }
         orderVo.setOrderItemVoList(orderItemVoList);
         return orderVo;
-
     }
 
     private OrderItemVo assembleOrderItemVo(OrderItem orderItem){
